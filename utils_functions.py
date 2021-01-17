@@ -86,11 +86,12 @@ def lstm_model():
     return model
 
 #Callback Functions
-class myCallback(tf.keras.callbacks.Callback):
+class custom_Callback(tf.keras.callbacks.Callback):
     def on_epoch_end(self, epoch, logs={}):
         if(logs.get('val_mse')<21.882):
-            print("\n MSE Reached less than benchmark model so cancelling training!")
+            print("\n MSE Reached less than benchmark model so aborting training!")
             self.model.stop_training = True
+callback = custom_Callback()
 
 def plot_metric(history, metric,zoom_range):
     train_metrics = history.history[metric]
